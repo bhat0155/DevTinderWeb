@@ -1,17 +1,18 @@
+import { useSelector } from "react-redux";
+
+
 const Navbar = () => {
+  const userData=useSelector((store)=> store.user)
+  console.log(userData)
   return (
     <div>
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">Dev Tinder 🧑‍💻</a>
         </div>
-        <div className="flex-none gap-2">
+       {userData &&  <div className="flex-none gap-2">
           <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
-            />
+           <h2>Welcome, {userData.firstName}</h2>
           </div>
           <div className="dropdown dropdown-end">
             <div
@@ -44,7 +45,7 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   );
