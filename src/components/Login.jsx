@@ -10,6 +10,9 @@ const Login = () => {
   const [password, setPassword] = useState("Batunga@003");
   const dispatch=useDispatch()
   const navigate= useNavigate()
+  const [error, setError]=useState("")
+
+
 
   const handleClick = async () => {
     try {
@@ -24,12 +27,15 @@ const Login = () => {
         }
       );
 
-      console.log(fetchData.data);
+      console.log({ekam: fetchData.data});
       dispatch(addUser(fetchData.data))
-      navigate("/feed")
+      navigate("/")
 
     } catch (err) {
       console.log(err);
+      setError(err?.response?.data)
+      navigate("/login")
+      
     }
   };
 
@@ -62,6 +68,7 @@ const Login = () => {
             onChange={(ev) => setPassword(ev.target.value)}
           />
         </label>
+        <p className="text-red-600 mt-4 ml-16">{error}</p>
         <button
           className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg mt-10 ml-20 bg-blue-800"
           onClick={handleClick}
