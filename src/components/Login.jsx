@@ -8,11 +8,9 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [email, setEmail] = useState("batunga@gmail.com");
   const [password, setPassword] = useState("Batunga@003");
-  const dispatch=useDispatch()
-  const navigate= useNavigate()
-  const [error, setError]=useState("")
-
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleClick = async () => {
     try {
@@ -27,15 +25,12 @@ const Login = () => {
         }
       );
 
-      console.log({ekam: fetchData.data});
-      dispatch(addUser(fetchData.data))
-      navigate("/")
-
+      dispatch(addUser(fetchData.data));
+      navigate("/");
     } catch (err) {
       console.log(err);
-      setError(err?.response?.data)
-      navigate("/login")
-      
+      setError(err?.response?.data);
+      navigate("/login");
     }
   };
 

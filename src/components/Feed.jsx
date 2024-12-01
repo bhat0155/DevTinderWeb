@@ -11,7 +11,7 @@ const Feed = () => {
   const fetchFeed = async () => {
     if (feedData) return;
     const res = await axios.get(BASE_URL + "/feed", { withCredentials: true });
-    console.log(res?.data?.data);
+
     dispatch(addFeed(res?.data?.data));
   };
 
@@ -19,11 +19,7 @@ const Feed = () => {
     fetchFeed();
   }, []);
 
-  return (
-    <div>
-      {feedData && <Usercard data={feedData[0]} />}
-    </div>
-  );
+  return <div>{feedData && <Usercard data={feedData[0]} />}</div>;
 };
 
 export default Feed;

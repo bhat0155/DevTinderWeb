@@ -17,11 +17,11 @@ const Body = () => {
       const data = await axios.get(BASE_URL + "/profile", {
         withCredentials: true,
       });
-      console.log(data);
+
       dispatch(addUser(data.data));
     } catch (err) {
-        navigate("/login");
-      
+      navigate("/login");
+
       console.log(err.message);
     }
   };
@@ -34,7 +34,7 @@ const Body = () => {
     <div>
       <Navbar />
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
