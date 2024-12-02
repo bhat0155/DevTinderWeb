@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import appStore from "./utils/appStore";
 import { Provider } from "react-redux";
 import Feed from "./components/Feed";
+import Connection from "./components/Connection";
 
 const router = createBrowserRouter([
   {
@@ -20,9 +21,14 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
+        path: "/connections",
+        element: <Connection />,
+      },
+      {
         path: "/",
         element: <Feed />,
       },
+ 
     ],
   },
 ]);
