@@ -1,6 +1,6 @@
 import React from "react";
 
-const ConnectionCard = ({data}) => {
+const ConnectionCard = ({data, showButton}) => {
     const {firstName, lastName, photoURL, skills}=data
     console.log({photoURL})
 
@@ -20,6 +20,10 @@ const ConnectionCard = ({data}) => {
           {/* <div className="card-actions justify-end">
             <button className="btn btn-primary">Watch</button>
           </div> */}
+          {showButton && <div>
+            <button className="btn mr-2 hover:bg-green-300 hover:text-black">Accept</button>
+            <button className="btn ml-2 hover:bg-red-400  hover:text-black">Reject</button>
+            </div>}
         </div>
       </div>
     </div>

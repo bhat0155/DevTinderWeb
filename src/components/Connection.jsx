@@ -40,7 +40,7 @@ const Connections = () => {
       </div>
       {connectionsData &&
         connectionsData.map((item) => {
-          return <ConnectionCard key={item._id} data={item} />;
+          return <ConnectionCard key={item._id} data={item} showButton={false} />;
         })}
     </div>
   );
