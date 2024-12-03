@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRequest } from "../utils/requestSlice";
 import ConnectionCard from "./connectionCard";
 
-
 const Requests = () => {
   const dispatch = useDispatch();
   const requestData = useSelector((store) => store.requests);
   console.log({ requestData });
+
+
+
   const fetchRequest = async () => {
     try {
       if (requestData) return;
@@ -43,7 +45,14 @@ const Requests = () => {
       </div>
       {requestData &&
         requestData.map((item) => {
-          return <ConnectionCard key={item._id} data={item.fromUserId} showButton={true} />;
+          return (
+            <ConnectionCard
+              key={item._id}
+              documentId={item._id}
+              data={item.fromUserId}
+              showButton={true}
+            />
+          );
         })}
     </div>
   );
