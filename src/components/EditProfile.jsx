@@ -12,7 +12,7 @@ const EditProfile = ({ user }) => {
   const [lastName, setLastName] = useState(user.lastName);
   const [photoURL, setPhotoURL] = useState(user.photoURL);
   const [skills, setSkills] = useState(user.skills);
-  const [gender, setGender] = useState(user.gender);
+  const [gender, setGender] = useState(user?.gender);
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
 
@@ -118,7 +118,7 @@ const EditProfile = ({ user }) => {
         </div>
         {/* we are sending the updated values as props */}
         {user && (
-          <Usercard data={{ firstName, lastName, photoURL, skills, gender }} />
+          <Usercard data={{ firstName, lastName, photoURL, skills, gender }} showButton={false}/>
         )}
         {showToast && <Toast />}
       </div>

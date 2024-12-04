@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest } from "../utils/requestSlice";
@@ -9,8 +9,6 @@ const Requests = () => {
   const dispatch = useDispatch();
   const requestData = useSelector((store) => store.requests);
   console.log({ requestData });
-
-
 
   const fetchRequest = async () => {
     try {

@@ -19,7 +19,17 @@ const Feed = () => {
     fetchFeed();
   }, []);
 
-  return <div>{feedData && <Usercard data={feedData[0]} />}</div>;
+  if (!feedData) return;
+  if (feedData.length < 1)
+    return (
+      <div className="flex justify-center">
+        <h1>No more users available</h1>
+      </div>
+    );
+
+  return (
+    <div>{feedData && <Usercard showButton={true} data={feedData[0]} />}</div>
+  );
 };
 
 export default Feed;
