@@ -1,64 +1,67 @@
 import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
 import CheckoutForm from "./CheckoutForm";
 import StripeWrapper from "./StripeWrapper";
+import { BASE_URL } from "../utils/constants";
 
 const Premium = () => {
   const [clientSecret, setClientSecret] = useState("");
+  const [checkoutForm, setCheckoutForm] = useState(false);
   const [selectedType, setSelectedType] = useState("");
-  const [showCheckout, setShowCheckout] = useState(false);
 
-  const handlePlanClick = async (type) => {
-    console.log("Button clicked:", type);
+  const handleType = async (type) => {
+    console.log("🔁 Button clicked for:", type);
+
     try {
       const res = await axios.post(
-        `${BASE_URL}/payment/create`,
-        { membershipType: type },
-        { withCredentials: true }
+        BASE_URL + "/payment/create",
+        {
+          membershipType: type,
+        },
+        {
+          withCredentials: true,
+        }
       );
 
-      console.log("Client secret from backend:", res.data.clientSecret);
+      console.log("✅ Client secret received:", res.data.clientSecret);
 
       setClientSecret(res.data.clientSecret);
       setSelectedType(type);
-      setShowCheckout(true);
+      setCheckoutForm(true);
     } catch (err) {
-      console.error("Payment creation failed:", err);
+      console.error("❌ Error creating payment intent:", err);
     }
   };
 
   return (
     <div className="m-10">
-      <div className="flex flex-col gap-4">
-        <div className="card bg-base-300 rounded-box h-20 grid place-items-center">
+      <div className="flex w-full flex-col gap-4">
+        <div className="card bg-base-300 rounded-box grid h-20 place-items-center">
           <button
-            onClick={() => handlePlanClick("Gold")}
+            onClick={() => handleType("Gold")}
             className="btn btn-warning"
           >
             Buy Gold Membership
           </button>
         </div>
+
         <div className="divider">OR</div>
-        <div className="card bg-base-300 rounded-box h-20 grid place-items-center">
-          <button
-            onClick={() => handlePlanClick("Silver")}
-            className="btn btn-info"
-          >
+
+        <div className="card bg-base-300 rounded-box grid h-20 place-items-center">
+          <button onClick={() => handleType("Silver")} className="btn btn-info">
             Buy Silver Membership
           </button>
         </div>
       </div>
 
-      {showCheckout && clientSecret && (
+      {checkoutForm && clientSecret && (
         <div className="mt-10">
-          {console.log("Rendering CheckoutForm")}
           <StripeWrapper>
             <CheckoutForm
               clientSecret={clientSecret}
-              onSuccess={() => {
-                alert(`Payment successful for ${selectedType} membership!`);
-                setShowCheckout(false);
+              onSuccess={async () => {
+                alert(`✅ Payment successful for ${selectedType} membership!`);
+                setCheckoutForm(false);
               }}
             />
           </StripeWrapper>

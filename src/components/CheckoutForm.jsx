@@ -4,11 +4,10 @@ const CheckoutForm = ({ clientSecret, onSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  console.log("Client Secret Received:", clientSecret);
-  console.log("Stripe loaded:", !!stripe);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!stripe || !elements) return;
 
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -19,18 +18,15 @@ const CheckoutForm = ({ clientSecret, onSuccess }) => {
     if (result.error) {
       alert(result.error.message);
     } else if (result.paymentIntent.status === "succeeded") {
-      onSuccess(); // call parent success
+      onSuccess();
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="p-4 border mt-6 bg-white rounded-md"
-    >
+    <form onSubmit={handleSubmit} className="p-4 border mt-6 bg-white rounded-md">
       <CardElement />
       <button type="submit" className="btn btn-primary mt-4" disabled={!stripe}>
-        Pay Now
+        Pay to Subscribe
       </button>
     </form>
   );
