@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import Feed from "./components/Feed";
 import Connection from "./components/Connection";
 import Requests from "./components/Requests";
+import Premium from "./components/Premium";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/requests",
         element: <Requests />,
+      },
+      {
+        path: "/premium",
+        element: <Premium />,
       },
       {
         path: "/",
