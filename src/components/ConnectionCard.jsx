@@ -1,7 +1,8 @@
- import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeRequest } from "../utils/requestSlice";
+import { Link } from "react-router-dom";
 
 const ConnectionCard = ({ data, showButton, documentId }) => {
   const { firstName, lastName, photoURL, skills, _id } = data;
@@ -32,6 +33,9 @@ const ConnectionCard = ({ data, showButton, documentId }) => {
         <div className="card-body">
           <h2 className="card-title">{`${firstName} ${lastName}`}</h2>
           <p>{skills}</p>
+          <Link to={"/chat/" + _id}>
+            <button className="bg-purple-600 px-4 py-4 rounded rounded-lg text-black">Chat</button>
+          </Link>
           {/* <div className="card-actions justify-end">
             <button className="btn btn-primary">Watch</button>
           </div> */}

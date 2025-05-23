@@ -8,6 +8,7 @@ import Feed from "./components/Feed";
 import Connection from "./components/Connection";
 import Requests from "./components/Requests";
 import Premium from "./components/Premium";
+import Chat from "./components/Chat";
 
 const router = createBrowserRouter([
   {
@@ -35,9 +36,14 @@ const router = createBrowserRouter([
         element: <Premium />,
       },
       {
+        path: "/chat/:targetUser",
+        element: <Chat />,
+      },
+      {
         path: "/",
         element: <Feed />,
       },
+     
  
     ],
   },
