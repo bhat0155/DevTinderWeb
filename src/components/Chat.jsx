@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const Chat = () => {
   const { targetUser } = useParams();
@@ -16,7 +18,21 @@ const Chat = () => {
   const sendMessage = () => {
     const socket = createSocketConnection();
     socket.emit("sendMessage", { firstName, userId, targetUser, mssg });
-    newMessage("")
+    newMessage("");
+  };
+
+  // retrive messages from db and display in the app
+  const fetchChatMessage = async () => {
+    const messages = await axios.get(`${BASE_URL}/chat/${targetUser}`, {
+      withCredentials: true,
+    });
+    console.log(messages);
+    const chatMessages = messages?.data?.messages.map((item) => {
+      const { senderId, text } = item;
+      return { firstName: senderId.firstName, text };
+    });
+    console.log(chatMessages);
+    setMessages(chatMessages);
   };
 
   // as soon as the page loads, connect to the server
@@ -33,6 +49,7 @@ const Chat = () => {
       console.log(firstName + ": " + mssg);
       setMessages((prev) => [...prev, { firstName, text: mssg }]);
     });
+    fetchChatMessage();
 
     // cleanup
     return () => {
@@ -49,14 +66,14 @@ const Chat = () => {
         {messages.map((msg, index) => {
           return (
             <div key={index}>
-              <div className="chat chat-start">
+              <div
+                className={
+                  "chat " +
+                  (user.firstName == msg.firstName ? "chat-end" : "chat-start")
+                }
+              >
                 <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img
-                      alt="Tailwind CSS chat bubble component"
-                      src="https://img.daisyui.com/images/profile/demo/kenobee@192.webp"
-                    />
-                  </div>
+                  <div className="w-10 rounded-full"></div>
                 </div>
 
                 <div className="chat-header">{msg.firstName}</div>
