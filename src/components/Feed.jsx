@@ -23,7 +23,7 @@ const Feed = () => {
   if (feedData.length < 1)
     return (
       <div className="flex justify-center">
-        <h1>No more users available</h1>
+        <h1>Refresh to load more users</h1>
       </div>
     );
 
